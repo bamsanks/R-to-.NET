@@ -3,12 +3,13 @@ dllPath <- "/path/to/Tunnel.dll"
 
 dyn.load(dllPath)
 
-op1 = 3L
-op2 = 4L
-result = 0L
-success = FALSE
-message = ""
+ret <- .C("Multiply",
+  op1 = 3L,
+  op2 = 4L,
+  result = 0L,
+  success = FALSE,
+  message = "")
 
-.C("Multiply", op1, op2, result, success, message)
+if (ret$success) cat(ret$result)
 
 dyn.unload(dllPath)
